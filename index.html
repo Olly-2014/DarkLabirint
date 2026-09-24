@@ -463,7 +463,7 @@ const SHOP={
   lives:{name:'Vite extra',what:'Vite a inizio partita',max:3,base:80,val:l=>String(3+l)},
   stealth:{name:'Passo felpato',what:'L\'impulso attira i cacciatori entro',max:5,base:50,val:l=>(22-3*l)+' passi'},
   speed:{name:'Scarpe veloci',what:'Velocità di movimento',max:5,base:30,val:l=>(5+.3*l).toFixed(1).replace('.',',')},
-  nopause:{name:'Senza pause',special:true,max:1,base:1000,minlevel:20}
+  nopause:{name:'Senza pause',special:true,max:1,base:1000,minlevel:5}
 };
 const LS={
   get(k,d){try{const v=localStorage.getItem(k);return v?JSON.parse(v):d;}catch(e){return d;}},
@@ -496,7 +496,7 @@ function errMsg(e){
   if(m.includes('rate limit')||m.includes('too many'))return 'Troppi tentativi: riprova tra poco.';
   if(m.includes('fetch')||m.includes('network')||m.includes('failed to'))return 'Connessione assente.';
   if(m.includes('crediti insufficienti'))return 'Gemme insufficienti.';
-  if(m.includes('livello insufficiente'))return 'Devi aver raggiunto il livello 20.';
+  if(m.includes('livello insufficiente'))return 'Devi aver raggiunto il livello 5.';
   if(m.includes('livello massimo'))return 'Già al livello massimo.';
   return (e&&e.message)?e.message:'Errore: riprova.';
 }
