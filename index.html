@@ -547,7 +547,7 @@ function errMsg(e){
   if(m.includes('not confirmed'))return 'Prima conferma l\'email: controlla la posta.';
   if(m.includes('password')&&(m.includes('at least')||m.includes('weak')))return 'Password troppo debole o corta.';
   if(m.includes('rate limit')||m.includes('too many'))return 'Troppi tentativi: riprova tra poco.';
-  if(m.includes('fetch')||m.includes('network')||m.includes('failed to'))return 'Connessione assente.';
+  if(m.includes('fetch')||m.includes('network')||m.includes('failed to')||m.includes('load failed'))return 'Connessione assente. Riprova.';
   if(m.includes('crediti insufficienti'))return 'Gemme insufficienti.';
   if(m.includes('livello insufficiente'))return 'Devi aver raggiunto il livello 5.';
   if(m.includes('livello massimo'))return 'Già al livello massimo.';
