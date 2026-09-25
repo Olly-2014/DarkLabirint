@@ -235,24 +235,11 @@ function startMusic(){
     tl.connect(tlG);tlG.connect(og.gain);tl.start(t0);
     o.connect(og);og.connect(filt);o.start(t0);nodes.push(o,tl);
   });
-  music={gain:g,nodes,timer:null};
-  scheduleNextPluck();
-}
-function pluckNote(){
-  const scale=[293.66,349.23,392.00,440.00,523.25,587.33];
-  tone({f:scale[Math.random()*scale.length|0],dur:2.6,vol:.045,type:'sine'});
-}
-function scheduleNextPluck(){
-  if(!music)return;
-  music.timer=setTimeout(()=>{
-    if(music&&AC&&AC.state==='running'&&(G.state==='play'||G.state==='wait'))pluckNote();
-    scheduleNextPluck();
-  },3500+Math.random()*4500);
+  music={gain:g,nodes};
 }
 function stopMusic(){
   if(!music)return;
   const m=music;music=null;
-  if(m.timer)clearTimeout(m.timer);
   if(!AC)return;
   const t0=AC.currentTime;
   try{m.gain.gain.cancelScheduledValues(t0);m.gain.gain.setValueAtTime(m.gain.gain.value,t0);m.gain.gain.linearRampToValueAtTime(0,t0+1.1);}catch(_){}
@@ -920,12 +907,7 @@ function update(dt){
   if(!player.hidden&&near<2.4&&vibT<=0){vibT=.12+near*.2;haptic(20);}
 
   // segnale dell'uscita
-  beaconT-=dt;
-  if(beaconT<=0){
-    beaconT=1.4;
-    const dx=exit.x-px,dy=exit.y-py,d=Math.hypot(dx,dy);
-    if(d<16)sfx.beacon(.05+.17*Math.pow(1-d/16,1.2),[dx,dy]);
-  }
+  // segnale automatico dell'uscita disattivato: si sente solo la musica di sottofondo
   if(Math.hypot(exit.x-px,exit.y-py)<.55)levelDone();
 }
 
